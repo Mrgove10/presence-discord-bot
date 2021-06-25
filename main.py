@@ -38,11 +38,14 @@ async def start(ctx, *args):
             print('on time')
             await interaction.respond(content = "Presence Confirmer!")
             status = "on time"
-            
-        else:
+        elif int(time.time()) > (startTime + config.retard) :
             print('not on time')
             await interaction.respond(content = "Presence confirmer mais en retard!")
             status = "late"
+        else:
+            print('timeout')
+            await interaction.respond(content = "Presence confirmer mais en considere come absent!")
+            status = "was never here"
             
         # get the data from the interaction
         interactionData = json.loads(json.dumps(interaction.raw_data))
